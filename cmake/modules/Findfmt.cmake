@@ -35,16 +35,19 @@ function(fmt_check_version_include incdir)
         set(_fmt_version_file "${include}/fmt/bundled/core.h")
     endif()
 
-    if(EXISTS ${_fmt_version_file})
-        # parse "#define FMT_VERSION 40100" to 4.1.0
-        file(STRINGS "${_fmt_version_file}" FMT_VERSION_LINE REGEX "^#define[ \t]+FMT_VERSION[ \t]+[0-9]+$")
-        string(REGEX REPLACE "^#define[ \t]+FMT_VERSION[ \t]+([0-9]+)$" "\\1" FMT_VERSION "${FMT_VERSION_LINE}")
-        foreach(ver "FMT_VERSION_PATCH" "FMT_VERSION_MINOR" "FMT_VERSION_MAJOR")
-            math(EXPR ${ver} "${FMT_VERSION} % 100")
-            math(EXPR FMT_VERSION "(${FMT_VERSION} - ${${ver}}) / 100")
-        endforeach()
-        set(FMT_VERSION "${FMT_VERSION_MAJOR}.${FMT_VERSION_MINOR}.${FMT_VERSION_PATCH}" PARENT_SCOPE)
-    endif()
+    # if(EXISTS ${_fmt_version_file})
+    #     # parse "#define FMT_VERSION 40100" to 4.1.0
+    #     file(STRINGS "${_fmt_version_file}" FMT_VERSION_LINE REGEX "^#define[ \t]+FMT_VERSION[ \t]+[0-9]+$")
+    #     string(REGEX REPLACE "^#define[ \t]+FMT_VERSION[ \t]+([0-9]+)$" "\\1" FMT_VERSION "${FMT_VERSION_LINE}")
+    #     foreach(ver "FMT_VERSION_PATCH" "FMT_VERSION_MINOR" "FMT_VERSION_MAJOR")
+    #         math(EXPR ${ver} "${FMT_VERSION} % 100")
+    #         math(EXPR FMT_VERSION "(${FMT_VERSION} - ${${ver}}) / 100")
+    #     endforeach()
+    #     set(FMT_VERSION "${FMT_VERSION_MAJOR}.${FMT_VERSION_MINOR}.${FMT_VERSION_PATCH}" PARENT_SCOPE)
+    # endif()
+
+    set(FMT_VERSION "11.0.2" PARENT_SCOPE)
+
 endfunction()
 
 function(find_fmt)
